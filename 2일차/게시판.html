@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h1>Vue 를 이용한 게게시시판판</h1>
+
+        <table class="table table-bordered">
+            <tr>
+                <td>번호</td>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>날짜</td>
+            </tr>
+
+
+            <tr v-for="board in boards">
+                <td>{{board.no}}</td>
+                <td>{{board.title}}</td>
+                <td>{{board.writer}}</td>
+                <td>{{board.regtime}}</td>
+            </tr>
+        </table>
+    </div>
+    
+
+
+    <script>
+        const boards = [{
+            "no": 3,
+                "title": "프론트엔드 프레임워크",
+                "content": "Vue는 프론트엔드의 인기있는 프레임워크 입니다.",
+                "writer": "ssafy",
+                "regtime": "2020-10-30"
+            },
+            {
+                "no": 2,
+                "title": "Vue를 배워봅시다",
+                "content": "Vue와 Spring을 연동하자~",
+                "writer": "ssafy",
+                "regtime": "2020-09-19"
+            },
+            {
+                "no": 1,
+                "title": "Vue Axios 연동",
+                "content": "Vue를 이용한 HTTP 통신",
+                "writer": "ssafy",
+                "regtime": "2020-10-26"
+            }
+        ];
+        new Vue({
+            el: '#app',
+            data:{
+                boards, //boards : boards,  같은 의미
+            },
+        });
+        
+        </script>
+</body>
+
+
+</html>
