@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  
+  <div id="app" class="container">
+    <h1 class="text-center">Vue 를 이용한 게게시시판판</h1>
+    <template v-for="board in boards" v-if="board.no==no">
+        <table class="table table-bordered">
+          <tr>
+            <td>번호</td>
+            <td>{{board.no}}</td>
+          </tr>
+          <tr>
+            <td>글쓴이</td>
+            <td>{{board.writer}}</td>
+          </tr>
+          <tr>
+            <td>제목</td>
+            <td>{{board.title}}</td>
+          </tr>
+          <tr>
+            <td>날짜</td>
+            <td>{{board.regtime}}</td>
+          </tr>
+        </table>  
+        {{board.content}}
+        <br>
+      </template>
+      <a href="list.html" class="btn btn-primary" style="float:right">목록</a>
+  </div>
+
+  <script>
+    // https://developer.mozilla.org/en-US/docs/Web/API/URL/URL
+    const params = (new URL(document.location)).searchParams;
+    const no = params.get('no');
+    console.dir(new URL(document.location));
+    console.dir(params.get('no'));
+
+    const boards = [{
+        "no": 3,
+        "title": "프론트엔드 프레임워크",
+        "content": "Vue는 프론트엔드의 인기있는 프레임워크 입니다.",
+        "writer": "ssafy",
+        "regtime": "2020-10-30"
+      },
+      {
+        "no": 2,
+        "title": "Vue를 배워봅시다",
+        "content": "Vue와 Spring을 연동하자~",
+        "writer": "ssafy",
+        "regtime": "2020-09-19"
+      },
+      {
+        "no": 1,
+        "title": "Vue Axios 연동",
+        "content": "Vue를 이용한 HTTP 통신",
+        "writer": "ssafy",
+        "regtime": "2020-10-26"
+      }
+    ];
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          boards,
+          no: no,
+        }
+      },
+    });
+  </script>
+
+</body>
+
+</html>
