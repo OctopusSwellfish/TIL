@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h1 class="text-center">Vue 를 이용한 게게시시판판</h1>
+        <div>
+            <label for="writer">작성자</label>
+            <input type="text" id="writer" placeholder="작성자를 입력하세요." v-model="writer">
+
+        </div>
+        <div>
+            <label for="title">제목</label>
+            <input type="text" id="title" placeholder="제목을 입력하세요." v-model="title">
+
+        </div>
+        <div>
+            <label for="content">내용</label>
+            <input type="text" id="content" placeholder="내용을 입력하세요." v-model="content">
+
+        </div>
+        <div class="text-right">
+            <button class="btn btn-primary" @click="insert">등록</button>
+        </div>
+
+        <div v-if="boards.length">
+        <table class="table table-bordered">
+            <tr>
+                <td>번호</td>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>날짜</td>
+            </tr>
+
+
+            <tr v-for="board in boards">
+                <td> {{board.no}}</td>
+                <td> <a :href="'read.html?no='+board.no">{{board.title}}</a></td>
+                <td>{{board.writer}}</td>
+                <td>{{board.regtime}}</td>
+            </tr>
+        </table>
+        </div> 
+        <div v-else>
+            <h3>게시글이 없습니다루</h3>
+        </div>
+    </div>
+    
+
+
+    <script>
+        // const boards = [{
+        //     "no": 3,
+        //         "title": "프론트엔드 프레임워크",
+        //         "content": "Vue는 프론트엔드의 인기있는 프레임워크 입니다.",
+        //         "writer": "ssafy",
+        //         "regtime": "2020-10-30"
+        //     },
+        //     {
+        //         "no": 2,
+        //         "title": "Vue를 배워봅시다",
+        //         "content": "Vue와 Spring을 연동하자~",
+        //         "writer": "ssafy",
+        //         "regtime": "2020-09-19"
+        //     },
+        //     {
+        //         "no": 1,
+        //         "title": "Vue Axios 연동",
+        //         "content": "Vue를 이용한 HTTP 통신",
+        //         "writer": "ssafy",
+        //         "regtime": "2020-10-26"
+        //     }
+        // ];
+
+        new Vue({
+            el: '#app',
+            data:{
+                boards : [],
+                writer : '',
+                title : '',
+                content : '',
+                regtime : '',
+            },
+
+            methods: {
+                insert(){
+                    //사용자의 입력값을 얻어오기ㅡ 유효성 체크
+                    let err = false; //플래그 변수
+                    let msg = ''; //에러메시지
+                    if(!this.writer){
+                        err = true;
+                        msg = '작성자를 입력해주세요';
+                    }else if(!this.title){
+                        err = true;
+                        msg = '제목을 입력해주세요';
+                    }
+
+                    if(err){
+                        alert(msg); // 경고창 띄우기
+                        return;
+                    }
+
+                    //로컬 스토리지에 저장
+                    const board= localStorage.getItem('board'); //기존 로컬스토리지 데이터에 추가하기위해서 읽어옴
+                    let newBoard = {
+                        sequence : 0,
+                        items: [],
+                    };
+
+                    if(board){ //값이 있으면
+                        newBoard = JSON.parse(board);
+                    }
+
+                    newBoard.sequence += 1; //개수 추가
+                    newBoard.items.push({ //배열에 객체 하나 추가
+                        writer : this.writer,
+                        title: this.title,
+                        content: this.content,
+                        no : newBoard.sequence,
+                        regtime : new Date(),
+                    });
+
+                    //로컬 스토리지에 다시 저장하기
+                    localStorage.setItem('board', JSON.stringify(newBoard));
+                    alert("등록완료!");
+
+                    //location.href="list.html"; //다음 화면으로 넘어갈 경우
+                },
+            },
+
+            created() { //시작할 때, 로컬 스토리지에서 데이터를 읽어서 Vue 인스턴스의 변수에 넣어주기
+                const board = localStorage.getItem('board');
+                let newBoard = {
+                    sequence : 0,
+                    items : [],
+                };
+
+                if(board){ //저장된 것이 있다면
+                    newBoard = JSON.parse(board);
+                }else{ //저장된 것이 없다면
+                    localStorage.setItem('board', JSON.stringify(newBoard));
+                }
+                
+                this.boards = newBoard.items;
+            },
+        });
+        
+        </script>
+</body>
+
+
+</html>
