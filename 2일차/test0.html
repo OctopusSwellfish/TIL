@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- a: anchor태그                 종료태그 -->
+        <a href="test01.html">다음화면 클릭</a>
+<!--         속성명=속성값-->
+<!--        요소(다합쳐서 요소라 부름), 시작태그~종료태그 모든 것 -->
+<!--                           컨텐츠 문서 : 시작태그~종료태그 -->
+        <br>
+        <span>{{message}}</span> <br>
+        <span>메시지 : {{message}}</span> <br>
+        <div v-text="message"></div> 
+        <div v-text="'aptlwl: ' + message"></div> <br>
+        <div v-html="'메시지 :: '+message"></div> 
+        
+        <div v-bind:[kkk] = "test">속성명에 변수내용 적용</div>
+        <div :[kkk] = "test">속성명에 변수내용 적용</div>
+    
+    
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data() {
+                return {
+                    message: 'ssafy',
+                    kkk : 'id',
+                    test : 'ttt'
+                }
+            },
+        });
+
+    </script>
+    
+</body>
+</html>
