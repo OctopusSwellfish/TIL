@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!-- https://momentjs.com/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .table {
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <nav-header></nav-header>
+
+      <h2 class="text-center">Vue를 이용한 게시판</h2>
+      <read></read>
+    </div>
+
+    <script>
+      const NavHeader = {
+        // <nav-header>
+        template: `<p>
+            <a href="./index.html">HOME</a>
+            <a href="./list.html">게시판</a>
+            </p>`,
+      };
+
+      const Read = {
+        data() {
+          return {
+            item: {},
+          };
+        },
+        created() {
+          const params = new URL(document.location).searchParams;
+          const board = JSON.parse(localStorage.getItem('board'));
+
+          // 반복을 돌면서 board.items의 값을 꺼낸다.
+          for (let item of board.items) {
+            // 페이지 호출시 넘어온 no의 값과 스토리지에 저장된 게시물의 번호가 같은지 체크한다.
+            if (params.get('no') == item.no) {
+              // 번호에 해당하는 객체의 정보를 data속성의 item에 설정한다.
+              this.item = item;
+              break;
+            }
+          }
+        },
+        methods: {
+          getFormatDate(regtime) {
+            // moment 라이브러리를 이용하여 날짜 정보를 년.월.일 시:분:초 의 형태로 반환한다.
+            return moment(new Date(regtime)).format('YYYY.MM.DD HH:mm:ss');
+          },
+        },
+        template: `<div>
+          <table class="table table-bordered w-50">
+            <tr>
+              <th>번호</th>
+              <td>{{item.no}}</td>
+            </tr>
+            <tr>
+              <th>글쓴이</th>
+              <td>{{item.writer}}</td>
+            </tr>
+            <tr>
+              <th>제목</th>
+              <td>{{item.title}}</td>
+            </tr>
+            <tr>
+              <th>날짜</th>
+              <td>{{getFormatDate(item.regtime)}}</td>
+            </tr>
+            <tr>
+              <td colspan="2">{{item.content}}</td>
+            </tr>
+          </table>
+          <br />
+          <div class="text-center">
+            <a href="./list.html" class="btn btn-primary">목록</a>
+            <!-- delete.html 에 게시글 번호를 파라미터로 설정(href 속성 설정) -->
+            <a :href="'./delete.html?no='+item.no" class="btn btn-primary">삭제</a>
+          </div>
+        </div>`,
+      };
+
+      new Vue({
+        el: '#app',
+        components: {
+          NavHeader,
+          Read: Read, //Read <= also able
+        },
+      });
+    </script>
+  </body>
+</html>
