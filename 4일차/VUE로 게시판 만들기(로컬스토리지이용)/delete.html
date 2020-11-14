@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- https://momentjs.com/ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <nav-header></nav-header>
+
+    <h2 class="text-center">Vue를 이용한 게시판</h2>
+   
+    <list></list>
+  </div>
+
+  <script>
+    const NavHeader = {
+      template : `    <p>
+      <a href="./index.html">HOME</a>
+      <a href="./list.html">게시판</a>
+    </p>`,
+    };
+
+    const List = {
+            // created 라이프사이클 훅 선언
+            created(){
+        // 로컬스토리지에서 "board" 이름의 데이터를 가져온다.
+        const board = localStorage.getItem('board');
+        // 게시글의 번호를 위해서 sequence속성의 값을 0으로 
+        // 게시글을 담기위해서 items 속성의 값을 빈 배열로 선언
+        let newBoard = {
+          sequence : 0,
+          items : [],
+        };
+        // board 변수에 데이터가 존재한다면 
+        if (board) {
+          // newBaord 변수에 board의 값을 객체로 파싱하여 newBoard에 담는다.
+          newBoard = JSON.parse(board);
+        } else {
+          // 로컬스토리지에 board 키로 newBoard 객체의 내용을 문자열로 변환 저장한다
+          // setItem, JSON.stringify 함수 이용
+          localStorage.setItem('board', JSON.stringify(newBoard));
+        }
+        // newBoard.items 의 내용을 최신 게시글 순으로 정렬한다.
+        // javascript sort 함수 사용
+
+        newBoard.items.sort((a, b)=>{
+          return b.no - a.no;
+        });
+
+        // data 속성의 items 에 newBoard 객체의 items의 값을 담는다.
+        this.items = newBoard.items;
+      },
+      // 메서드들을 선언한다.
+      methods: {
+        // 목록 데이터 반복시 날짜 정보 문자열을 받아 원하는 형태로 변환하는 함수를 정의한다.
+        // 함수이름 : getFormatDate
+        getFormatDate(regtime) {
+          return moment(new Date(regtime)).format("YYYY.MM.DD")
+        },
+        // 등록 페이지로 이동할 movePage 메서드 정의
+        movePage() {
+          // create.html 로 호출한다.
+          location.href="./create.html";
+        }
+      },
+      template: ` <div><div v-if="items.length">
+      <table class="table table-bordered table-condensed">
+        <colgroup>
+          <!-- 아래의 코드를 이해한다. -->
+          <col :style="{width: '10%'}" />
+          <col :style="{width: '50%'}" />
+          <col :style="{width: '15%'}" />
+          <col :style="{width: '25%'}" />
+        </colgroup>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>날짜</th>
+        </tr>
+        <tr v-for="(board, index) in items" :key="index + '_items'">
+          <td>{{board.no}}</td>
+          <td><a :href="'read.html?no=' + board.no">{{board.title}}</a></td>
+          <td>{{board.writer}}</td>
+          <!-- 
+              board의 regtime 속성의 날짜 값을 원하는 형태의 문자열로 변환할 getFormatDate 함수 호출 
+              호출시 board.regtime 데이터를 넘겨준다.
+            -->
+          <td>{{getFormatDate(board.regtime)}}</td>
+        </tr>
+      </table>
+    </div>
+    <!-- 게시글이 없을 경우 "게시글이 없습니다."를 화면에 보여준다.-->
+    <div v-else class="text-center">
+      게시글이 없습니다.
+    </div>
+    <div class="text-right">
+      <!-- 버튼 클릭시 movePage 메서드 호출 -->
+      <button class="btn btn-primary" @click="movePage">등록</button>
+    </div>
+    </div>
+  `,
+
+    };
+    new Vue({
+      el: '#app',
+      data() { //함수의 리턴 형태로 만들어져야함
+        return {
+          items:[],
+        }
+      },
+      components : {
+        NavHeader,
+        List,
+      },
+
+    });
+  </script>
+
+</body>
+
+</html>
