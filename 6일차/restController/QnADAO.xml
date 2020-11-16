@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ssafy.happyhouse.model.dao.QnADAO">
+ <!-- 여기 아래부터 우리꺼 -->
+ 	<insert id="insertQnA" parameterType="QnA">
+ 		insert into qna_board(
+ 			title, writer, content
+ 		) values (
+ 			#{title}, #{writer}, #{content}
+ 		)
+ 	</insert>
+ 	
+ 	<select id="selectQnA" resultType="QnA">
+ 		select no, title, writer, content, regtime
+ 		from qna_board
+ 	</select>
+ 	
+ 	<select id="selectQnAByNo" parameterType="int" resultType="QnA">
+ 		select no, title, writer, content, regtime
+ 		from qna_board
+ 		where no = #{no}
+ 	</select>
+ 	
+ 	<delete id="deleteQnA" parameterType="int">
+ 		delete
+ 		from qna_board
+ 		where no = #{no}
+ 	</delete>
+ 	
+ 	<update id="updateQnA" parameterType="QnA">
+ 		update qna_board
+ 			set title = #{title},
+ 				writer = #{writer},
+ 				content = #{content}
+ 		where no = #{no}
+ 	</update>
+ 	
+ <!-- 여기 위부터 우리꺼 -->
+ </mapper>
+ 
