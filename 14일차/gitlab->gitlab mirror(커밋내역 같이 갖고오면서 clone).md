@@ -21,3 +21,7 @@
 * 그런다음에 비번 쳐서 push해주면 된다.
 
 이 간단한걸 어려워했다니..정말 배울게많다
+---
+## 이후 꼭 해야 하는 것
+* A,B 둘다 다시 master브랜치 protect해줄것(혼자 Maintainer로 쓰는 거면 상관 X)
+* 가져온 commit내역을 가지고 Merge Request 할 것
