@@ -40,4 +40,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 
 * `registry.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();` 이 부분이 중요했는데, 그냥 `setAllowedOrigin`만 쓰면 안되고 `setAllowedOriginPatterns`를 해야했다!
 * 둘의 차이점은 정확히는 모르겠으나 후자의 함수가 좀더 유연하게 cors 대처가 가능하다고 한다.
+* websocket을 처음 도입해서 겪는 오류가 많았는데 일단 해결해서 다행이다.
 
