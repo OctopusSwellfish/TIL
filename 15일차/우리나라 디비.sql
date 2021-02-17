@@ -1,4 +1,3 @@
-
 INSERT INTO district (name) value("서울");
 INSERT INTO district (name) value("부산");
 INSERT INTO district (name) value("대구");
