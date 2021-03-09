@@ -14,7 +14,8 @@
 * **틈틈이 코테 공부**
 * **CS공부**
 * **자소서**
-* 
+* lambda + websocket
+* lambda + apigateway
 ---
 **3월 1주차 공부**
 cloud native 공부 빡세게 해야됨
