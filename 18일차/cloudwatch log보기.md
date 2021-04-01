@@ -1,3 +1,4 @@
+```python
 import boto3
 from datetime import datetime, timedelta
 import time
@@ -33,3 +34,4 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps(response)
     }
+```
