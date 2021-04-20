@@ -12,4 +12,5 @@ TreeSet<String> ts = new TreeSet<String>(new Comparator<String>() {
 
 String[] result = ts.toArray(new String[ts.size()]);
 
-//지금같은 경우는 스트링 정려할때 큰 게 앞으로오는것이다.
+//지금같은 경우는 스트링 정려할때 큰 게 앞으로오는것이다
+//PriorituQyeye 도 만드는 방식은 
