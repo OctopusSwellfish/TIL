@@ -1,0 +1,29 @@
+static 이 뭔지 설명해라
+추상메소드 인터페이스 차이 설명해라
+final 키워드 설명해라(변수에서 말고 메소드랑 클래스에 붙으면 어떻게 되는지)
+데이터베이스 테이블을 잘 나눠 놔야 하는 이유는?
+데이터베이스에서 join이 있는데 이 종류는?
+join중 left join이란?
+left join과 inner join차이저ㅁ
+left join 할때 right table 비어있으면 조인결과가 어떻게 나올까?(여기서 부터 멘탈 나감)
+http request method 종류 설명해라
+http request method 각각 뭔 역할인지 설명해라
+
+데이터베이스 트랜잭션이 뭔지 설명해라
+데베 인덱스가 뭐냐? 장-단점?
+멀티프로세싱과 멀티스레딩 차이점?
+컨텍스트 스위칭 과정?
+http와 https 차이점?
+tcp 3 핸드 쉐이킹 과정? 그게뭔지?
+
+tcp 에서 세션 종료할때도 3번 하냐?
+아니라면 어떻게 하냐?
+final 키워드를 쓰는 이유?
+delete 랑 truncate(?) 차이점?
+데이터베이스 트랜잭션중에 i 에서 4가지 레벨이 있는데 이거 뭔지 설명가능하냐?
+restful 이 뭐냐? 뜻 말해봐라
+restful 의 명명규칙을 아는대로 말해라
+checkedException uncheckedException 차이?
+재귀함수가 뭐냐?
+재귀함수 base condition 없으면 어떻게 되냐?
+thread-safe란
