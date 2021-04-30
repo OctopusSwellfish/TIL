@@ -26,4 +26,10 @@ restful 의 명명규칙을 아는대로 말해라
 checkedException uncheckedException 차이?
 재귀함수가 뭐냐?
 재귀함수 base condition 없으면 어떻게 되냐?
-thread-safe란
+thread-safe란 ?
+synchronized 키워드 뭔지 설명
+
+* 개인적으로 공부하고 싶은거
+- 디자인패턴 (책 뭘로 해야되는지 고민)
+- 클린 코드
+- 쿠버네티스
